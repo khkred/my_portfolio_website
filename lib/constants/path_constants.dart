@@ -18,4 +18,5 @@ class PathConstants {
   static const String desktopLogo = 'assets/images/logos/monitor.png';
   static const String dockerMarkBlueLogo = 'assets/images/logos/docker_mark_blue_logo.png';
   static const String postGreSqlLogo = 'assets/images/logos/post_gre_sql.png';
+  static const String pythonLogo = 'assets/images/logos/python-logo-only.png';
 }

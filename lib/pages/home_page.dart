@@ -5,6 +5,8 @@ import 'package:my_portfolio/widgets/drawer_mobile.dart';
 import 'package:my_portfolio/widgets/header_desktop.dart';
 import 'package:my_portfolio/widgets/header_mobile.dart';
 import 'package:my_portfolio/widgets/main_desktop.dart';
+import 'package:my_portfolio/widgets/skills_desktop.dart';
+import 'package:my_portfolio/widgets/skills_mobile.dart';
 
 import '../widgets/main_mobile.dart';
 
@@ -22,18 +24,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final screenWidth = screenSize.width;
-    final screenHeight = screenSize.height;
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         key: _scaffoldKey,
         backgroundColor: CustomColor.scaffoldBg,
-        endDrawer: constraints.maxWidth >= SizeConstants.maxMobileWidth
+        endDrawer: constraints.maxWidth >= SizeConstants.minDesktopWidth
             ? null
             : const DrawerMobile(),
         body: ListView(
           scrollDirection: Axis.vertical,
           children: [
-            if (constraints.maxWidth >= SizeConstants.maxMobileWidth)
+            if (constraints.maxWidth >= SizeConstants.minDesktopWidth)
               const HeaderDesktop()
             else
               HeaderMobile(
@@ -42,16 +43,37 @@ class _HomePageState extends State<HomePage> {
                   _scaffoldKey.currentState?.openEndDrawer();
                 },
               ),
-            if (constraints.maxWidth >= SizeConstants.maxMobileWidth)
-            const MainDesktop()
+            if (constraints.maxWidth >= SizeConstants.minDesktopWidth)
+              const MainDesktop()
             else
-            MainMobile(screenHeight: screenHeight, screenWidth: screenWidth),
+              const MainMobile(),
 
             // SKILLS
             Container(
-              height: 500,
-              width: double.infinity,
-              color: Colors.blueGrey,
+              width: screenWidth,
+              color: CustomColor.bgLight1,
+              padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Title
+                  const Text(
+                    "What I can do?",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: CustomColor.whitePrimary,
+                    ),
+                  ),
+
+                  const SizedBox(height: 50),
+
+                  if (constraints.maxWidth >= SizeConstants.medDesktopWidth)
+                    const SkillsDesktop()
+                  else
+                    const SkillsMobile(),
+                ],
+              ),
             ),
             // PROJECTS
             Container(
@@ -71,4 +93,3 @@ class _HomePageState extends State<HomePage> {
     });
   }
 }
-

@@ -6,15 +6,15 @@ import '../constants/path_constants.dart';
 class MainMobile extends StatelessWidget {
   const MainMobile({
     super.key,
-    required this.screenHeight,
-    required this.screenWidth,
+
   });
 
-  final double screenHeight;
-  final double screenWidth;
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40,vertical: 30,),
       height: screenHeight,
